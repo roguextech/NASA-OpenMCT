@@ -11,6 +11,8 @@ define([
         let currentObjectPath;
         let isRoutingInProgress = false;
 
+        navigateToFirstChildOfRoot();
+
         openmct.router.route(/^\/browse\/?$/, navigateToFirstChildOfRoot);
 
         openmct.router.route(/^\/browse\/(.*)$/, (path, results, params) => {

@@ -3,7 +3,6 @@
     class="c-tree__item__label c-object-label"
     :class="[statusClass]"
     draggable="true"
-    :href="objectLink"
     @dragstart="dragStart"
     @click="navigateOrPreview"
 >
@@ -83,6 +82,8 @@ export default {
             if (this.openmct.editor.isEditing()) {
                 event.preventDefault();
                 this.preview();
+            } else {
+                this.openmct.router.navigateToObject(this.objectLink);
             }
         },
         preview() {
