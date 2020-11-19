@@ -100,7 +100,7 @@ class ApplicationRouter extends EventEmitter {
         return {
             url: url,
             path: url.pathname,
-            queryString: url.search.replace(/^\?/, ''),
+            getQueryString: () => url.search.replace(/^\?/, ''),
             params: paramsToObject(url.searchParams)
         };
     }
@@ -201,11 +201,8 @@ class ApplicationRouter extends EventEmitter {
         location.hash = '#' + hash.replace(/\#/g, '');
     }
 
-    updateTimeSettings(url) {
-        const queryString = url.search.replace(/^\?/, '');
-        console.log('queryString', queryString);
-        const hash = `${this.currentLocation.path}?${queryString}`;
-        this.handleLocationChange(hash);
+    updateTimeSettings() {
+        const hash = `${this.currentLocation.path}?${this.currentLocation.getQueryString()}`;
 
         this.changeHash(hash);
     }
@@ -215,7 +212,6 @@ class ApplicationRouter extends EventEmitter {
     }
 
     set(path, queryString) {
-        console.log('set ***********************************************');
         this.changeHash(`${path}?${queryString}`);
     }
 
@@ -223,16 +219,12 @@ class ApplicationRouter extends EventEmitter {
         this.handleLocationChange(`${this.currentLocation.path}?${queryString}`);
     }
 
-    changePath(path) {
-        this.set(path, this.currentLocation.queryString);
-    }
-
     getCurrentLocation() {
         return this.currentLocation;
     }
 
     setPath(path) {
-        this.changeHash(path);
+        this.handleLocationChange(path.substring(1));
     }
 
     route(matcher, callback) {
