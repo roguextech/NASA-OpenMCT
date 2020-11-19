@@ -198,7 +198,7 @@ class ApplicationRouter extends EventEmitter {
     }
 
     changeHash(hash) {
-        location.hash = '#' + hash.replace(/\#/g, '');
+        location.hash = '#' + hash.replace(/#/g, '');
     }
 
     updateTimeSettings() {
