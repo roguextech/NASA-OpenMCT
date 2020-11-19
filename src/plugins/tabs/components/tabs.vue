@@ -289,7 +289,7 @@ export default {
             }
         },
         clearCurrentTabIndexFromURL() {
-            deleteSearchParam(this.searchTabKey);
+            deleteSearchParam(this.openmct, this.searchTabKey);
         },
         updateStatus(keyString, status) {
             let tabPos = this.tabsList.findIndex((tab) => {
